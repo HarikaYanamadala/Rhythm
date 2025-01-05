@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythm Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .beat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .beat {
+            width: 60px;
+            height: 60px;
+            background: #555;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .beat.active {
+            background: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rhythm Project</h1>
+        <p>Click on the beats to create your rhythm!</p>
+        <div class="beat-grid">
+            <div class="beat" onclick="playBeat(this)"></div>
+            <div class="beat" onclick="playBeat(this)"></div>
+            <div class="beat" onclick="playBeat(this)"></div>
+            <div class="beat" onclick="playBeat(this)"></div>
+        </div>
+        <button class="button" onclick="startRhythm()">Start</button>
+        <button class="button" onclick="stopRhythm()">Stop</button>
+    </div>
+
+    <script>
+        let rhythmInterval;
+
+        function playBeat(element) {
+            element.classList.add('active');
+            setTimeout(() => element.classList.remove('active'), 300); // Highlight for 300ms
+        }
+
+        function startRhythm() {
+            const beats = document.querySelectorAll('.beat');
+            let index = 0;
+
+            rhythmInterval = setInterval(() => {
+                playBeat(beats[index]);
+                index = (index + 1) % beats.length;
+            }, 500); // Adjust speed here (500ms)
+        }
+
+        function stopRhythm() {
+            clearInterval(rhythmInterval);
+        }
+    </script>
+</body>
+</html>
